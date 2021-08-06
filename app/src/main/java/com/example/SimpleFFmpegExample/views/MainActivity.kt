@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import com.example.SimpleFFmpegExample.R
 import com.example.SimpleFFmpegExample.utils.Constants
 import com.example.SimpleFFmpegExample.utils.Constants.TAG
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,6 +18,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setupPermissions()
+
+
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

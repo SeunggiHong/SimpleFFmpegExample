@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ffmpeg_example">
-        <activity android:name="com.example.SimpleFFmpegExample.views.MainActivity">
+        <activity android:name=".views.TrimActivity"></activity>
+        <activity android:name=".views.CropActivity" />
+        <activity android:name=".views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

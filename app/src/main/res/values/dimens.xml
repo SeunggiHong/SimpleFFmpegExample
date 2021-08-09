@@ -605,4 +605,14 @@
     <dimen name="_598sdp">2152.80dp</dimen>
     <dimen name="_599sdp">2156.40dp</dimen>
     <dimen name="_600sdp">2160.00dp</dimen>
+
+    <!--app dimens-->
+    <dimen name="app_title">@dimen/_15sdp</dimen>
+    <dimen name="app_mid_header">@dimen/_14sdp</dimen>
+    <dimen name="app_mini_title">@dimen/_13sdp</dimen>
+    <dimen name="app_header">@dimen/_12sdp</dimen>
+    <dimen name="app_content">@dimen/_11sdp</dimen>
+    <dimen name="app_small">@dimen/_10sdp</dimen>
+    <dimen name="app_dashboard">@dimen/_30sdp</dimen>
+    <dimen name="app_very_small">@dimen/_9sdp</dimen>
 </resources>

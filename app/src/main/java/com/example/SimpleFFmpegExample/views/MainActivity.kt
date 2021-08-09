@@ -6,16 +6,16 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
+
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.SimpleFFmpegExample.R
 import com.example.SimpleFFmpegExample.utils.Constants
 import com.example.SimpleFFmpegExample.utils.Constants.INTENT_VIDEO_PATH
+import com.example.SimpleFFmpegExample.utils.Constants.REQUEST_VIDEO_CROP
 import com.example.SimpleFFmpegExample.utils.Constants.REQUEST_VIDEO_TRIM
 import com.example.SimpleFFmpegExample.utils.Constants.TAG
 import com.video.trimmer.utils.FileUtils
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         setupPermissions()
 
         btn_video_crop.setOnClickListener {
-
+            openVideo(REQUEST_VIDEO_CROP)
         }
 
         btn_video_trim.setOnClickListener {
@@ -59,8 +59,9 @@ class MainActivity : AppCompatActivity() {
     private val activityTrimResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val data = result.data!!.data
+            Log.d(TAG, "MainActivity - () called!! ${data}")
             if (data != null) {
-                Log.d(TAG, "activityTrimResultLauncher() intent = {$intent}")
+//                Log.d(TAG, "activityTrimResultLauncher() intent = {$intent}")
                 startTrimActivity(data)
             } else {
                 Toast.makeText(this, "찾을수 없어요.", Toast.LENGTH_SHORT).show()
@@ -73,9 +74,10 @@ class MainActivity : AppCompatActivity() {
         dlgPermission.show(supportFragmentManager, "permission")
     }
 
-    private fun startCropActivity() {
+    private fun startCropActivity(uri: Uri) {
         val intent = Intent(this@MainActivity, CropActivity::class.java)
-//        activityResultLauncher.launch(intent)
+        intent.putExtra(INTENT_VIDEO_PATH, FileUtils.getPath(this, uri))
+        startActivity(intent)
     }
 
     private fun startTrimActivity(uri: Uri) {
@@ -85,19 +87,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openVideo(code: Int){
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.setDataAndType(
-            MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-            "video/*"
-        )
+        val intent = Intent()
+        intent.setTypeAndNormalize("video/*")
         intent.action = Intent.ACTION_GET_CONTENT
         intent.addCategory(Intent.CATEGORY_OPENABLE)
 
         when(code) {
             REQUEST_VIDEO_TRIM -> {
-                activityTrimResultLauncher.launch(intent)
+                activityTrimResultLauncher.launch(Intent.createChooser(intent, "Select Video"))
             }
-
+            REQUEST_VIDEO_CROP -> {
+//                startActivityForResult(Intent.createChooser(intent, "Select Video"), code)
+            }
         }
 
     }

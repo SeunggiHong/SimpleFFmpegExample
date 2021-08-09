@@ -1,4 +1,4 @@
-package com.video.sample
+package com.example.SimpleFFmpegExample.utils
 
 import android.content.Context
 import android.graphics.Typeface

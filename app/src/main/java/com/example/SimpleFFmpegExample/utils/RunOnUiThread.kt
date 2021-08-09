@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import org.jetbrains.anko.runOnUiThread
 
-class RunOnUiThread(var context: Context) {
+class RunOnUiThread(var context: Context?) {
     fun safely(dothis: () -> Unit) {
         if (context != null) {
             context?.runOnUiThread {

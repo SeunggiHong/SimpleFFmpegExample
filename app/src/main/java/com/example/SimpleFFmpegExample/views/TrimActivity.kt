@@ -107,6 +107,10 @@ class TrimActivity : AppCompatActivity(), OnTrimVideoListener, OnVideoListener {
                 return true
             }
 
+            R.id.item_back -> {
+                videoTrimmer.onCancelClicked()
+                return true
+            }
 
             else -> super.onOptionsItemSelected(item)
         }

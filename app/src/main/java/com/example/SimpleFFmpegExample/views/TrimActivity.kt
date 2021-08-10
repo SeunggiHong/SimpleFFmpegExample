@@ -47,18 +47,20 @@ class TrimActivity : AppCompatActivity(), OnTrimVideoListener, OnVideoListener {
                     .setVideoInformationVisibility(true)
                     .setMaxDuration(10)
                     .setMinDuration(2)
-                    .setDestinationPath(Environment.getExternalStorageDirectory().toString() + File.separator + "Zoho Social" + File.separator + "Videos" + File.separator)
+                    .setDestinationPath(Environment.getExternalStorageDirectory().toString() + File.separator + "test" + File.separator + "Videos" + File.separator)
         }
     }
 
     override fun onTrimStarted() {
+        Log.d(TAG, "TrimActivity - onTrimStarted() called") 
         RunOnUiThread(this).safely {
             Toast.makeText(this, "Started Trimming", Toast.LENGTH_SHORT).show()
             progressDialog.show()
         }
     }
-
+    
     override fun getResult(uri: Uri) {
+        Log.d(TAG, "TrimActivity - getResult() called")
         RunOnUiThread(this).safely {
             Toast.makeText(this, "Video saved at ${uri.path}", Toast.LENGTH_SHORT).show()
             progressDialog.dismiss()
@@ -78,12 +80,14 @@ class TrimActivity : AppCompatActivity(), OnTrimVideoListener, OnVideoListener {
     }
 
     override fun onVideoPrepared() {
+        Log.d(TAG, "TrimActivity - onVideoPrepared() called") 
         RunOnUiThread(this).safely {
             Toast.makeText(this, "onVideoPrepared", Toast.LENGTH_SHORT).show()
         }
     }
 
     override fun cancelAction() {
+        Log.d(TAG, "TrimActivity - cancelAction() called") 
         RunOnUiThread(this).safely {
             videoTrimmer.destroy()
             finish()
@@ -91,7 +95,7 @@ class TrimActivity : AppCompatActivity(), OnTrimVideoListener, OnVideoListener {
     }
 
     override fun onError(message: String) {
-        Log.e("ERROR", message)
+        Log.e(TAG, "Trim onError {$message}")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

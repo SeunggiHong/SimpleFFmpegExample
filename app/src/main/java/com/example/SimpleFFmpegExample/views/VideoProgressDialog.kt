@@ -22,4 +22,8 @@ class VideoProgressDialog(private var ctx: Context, private var message: String)
         messageLabel.text = message
         messageLabel.typeface = FontsHelper[ctx, FontsConstants.SEMI_BOLD]
     }
+
+    fun setProgress(progress: Float) {
+        pieProgress.setProgress(progress)
+    }
 }

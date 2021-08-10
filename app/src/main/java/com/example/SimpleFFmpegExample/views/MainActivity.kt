@@ -59,10 +59,21 @@ class MainActivity : AppCompatActivity() {
     private val activityTrimResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val data = result.data!!.data
-            Log.d(TAG, "MainActivity - () called!! ${data}")
+            Log.d(TAG, "MainActivity activityTrimResultLauncher called")
             if (data != null) {
-//                Log.d(TAG, "activityTrimResultLauncher() intent = {$intent}")
                 startTrimActivity(data)
+            } else {
+                Toast.makeText(this, "찾을수 없어요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private val activityCropResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data = result.data!!.data
+            Log.d(TAG, "MainActivity activityCropResultLauncher called")
+            if (data != null) {
+                startCropActivity(data)
             } else {
                 Toast.makeText(this, "찾을수 없어요.", Toast.LENGTH_SHORT).show()
             }
@@ -77,7 +88,7 @@ class MainActivity : AppCompatActivity() {
     private fun startCropActivity(uri: Uri) {
         val intent = Intent(this@MainActivity, CropActivity::class.java)
         intent.putExtra(INTENT_VIDEO_PATH, FileUtils.getPath(this, uri))
-        startActivity(intent)
+        activityCropResultLauncher.launch(intent)
     }
 
     private fun startTrimActivity(uri: Uri) {
@@ -97,7 +108,7 @@ class MainActivity : AppCompatActivity() {
                 activityTrimResultLauncher.launch(Intent.createChooser(intent, "Select Video"))
             }
             REQUEST_VIDEO_CROP -> {
-//                startActivityForResult(Intent.createChooser(intent, "Select Video"), code)
+                activityCropResultLauncher.launch(Intent.createChooser(intent, "Select Video"))
             }
         }
 

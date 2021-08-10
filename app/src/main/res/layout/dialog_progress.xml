@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
@@ -8,11 +10,12 @@
     android:orientation="vertical"
     android:padding="@dimen/_12sdp">
 
-    <ProgressBar
-        android:id="@+id/progress"
+    <com.deepan.pieprogress.PieProgress
+        android:id="@+id/pieProgress"
         android:layout_width="@dimen/_35sdp"
         android:layout_height="@dimen/_35sdp"
-        android:indeterminate="true" />
+        app:progressColor="#000000"
+        app:strokeWidth="@dimen/_2sdp" />
 
     <TextView
         android:id="@+id/messageLabel"
